@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Support — Fieldwork</title>
+  <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0D0D0F;
+      --surface: #1A1A2E;
+      --primary: #D4A574;
+      --secondary: #7C9A8E;
+      --text-primary: #E8E0D8;
+      --text-secondary: #8A8A8A;
+      --border: #2A2A3E;
+      --font-display: 'Instrument Serif', Georgia, serif;
+      --font-body: 'Manrope', system-ui, sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html {
+      font-size: 16px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--bg);
+      color: var(--text-primary);
+      line-height: 1.7;
+    }
+
+    nav {
+      padding: 20px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: 1.4rem;
+      color: var(--primary);
+      text-decoration: none;
+    }
+
+    .nav-back {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .nav-back:hover { color: var(--text-primary); }
+
+    .support {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 64px 24px 96px;
+    }
+
+    .support h1 {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: 2.4rem;
+      color: var(--primary);
+      margin-bottom: 16px;
+    }
+
+    .support .intro {
+      font-size: 1.05rem;
+      color: var(--text-secondary);
+      margin-bottom: 48px;
+    }
+
+    .support h2 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-top: 40px;
+      margin-bottom: 12px;
+    }
+
+    .support p, .support li {
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      margin-bottom: 12px;
+    }
+
+    .support ul {
+      padding-left: 20px;
+      margin-bottom: 16px;
+    }
+
+    .support li { margin-bottom: 6px; }
+
+    .support a {
+      color: var(--primary);
+      text-decoration: none;
+    }
+
+    .support a:hover { text-decoration: underline; }
+
+    .contact-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 32px;
+      margin: 32px 0;
+      text-align: center;
+    }
+
+    .contact-card p {
+      margin-bottom: 16px;
+    }
+
+    .contact-email {
+      display: inline-block;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--primary);
+      padding: 12px 32px;
+      border: 1px solid rgba(212, 165, 116, 0.3);
+      border-radius: 100px;
+      text-decoration: none;
+      transition: background 0.3s, border-color 0.3s;
+    }
+
+    .contact-email:hover {
+      background: rgba(212, 165, 116, 0.1);
+      border-color: var(--primary);
+      text-decoration: none;
+    }
+
+    .faq-item {
+      border-bottom: 1px solid var(--border);
+      padding: 20px 0;
+    }
+
+    .faq-item:last-child { border-bottom: none; }
+
+    .faq-question {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+    }
+
+    .faq-answer {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      margin-bottom: 0;
+    }
+
+    footer {
+      padding: 48px 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    .footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .footer-left {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .footer-logo {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: 1.1rem;
+      color: var(--primary);
+    }
+
+    .footer-copy {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 24px;
+      list-style: none;
+    }
+
+    .footer-links a {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .footer-links a:hover { color: var(--text-primary); }
+
+    @media (max-width: 600px) {
+      nav { padding: 16px 20px; }
+      .support { padding: 40px 20px 64px; }
+      .support h1 { font-size: 1.8rem; }
+      .footer-inner { flex-direction: column; gap: 20px; text-align: center; }
+      .footer-left { flex-direction: column; gap: 8px; }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="../" class="nav-logo">Fieldwork</a>
+    <a href="../" class="nav-back">&larr; Back to home</a>
+  </nav>
+
+  <main class="support">
+    <h1>Support</h1>
+    <p class="intro">Have a question, found a bug, or need help with your account? We're here for you.</p>
+
+    <div class="contact-card">
+      <p>Reach out and we'll get back to you as soon as we can.</p>
+      <a href="mailto:alex@thedigitalpop.com" class="contact-email">alex@thedigitalpop.com</a>
+    </div>
+
+    <h2>Frequently Asked Questions</h2>
+
+    <div class="faq-item">
+      <p class="faq-question">How do I cancel my subscription?</p>
+      <p class="faq-answer">Open the Settings app on your iPhone, tap your name at the top, then tap Subscriptions. Find Fieldwork and tap Cancel Subscription. You'll keep access until the end of your current billing period.</p>
+    </div>
+
+    <div class="faq-item">
+      <p class="faq-question">How do I restore my subscription on a new device?</p>
+      <p class="faq-answer">Sign in with the same Apple ID you used to purchase. Go to Profile > Subscription and tap Restore Purchases. Your subscription will be restored automatically.</p>
+    </div>
+
+    <div class="faq-item">
+      <p class="faq-question">My observations aren't syncing.</p>
+      <p class="faq-answer">Fieldwork works offline and queues observations until you reconnect. Check that you have an internet connection — your data will sync automatically when you're back online.</p>
+    </div>
+
+    <div class="faq-item">
+      <p class="faq-question">How is my awareness score calculated?</p>
+      <p class="faq-answer">Your score is based on multiple factors: the length and detail of your observation, sensory vocabulary, specificity, and sentence variety. Richer, more specific observations earn higher scores.</p>
+    </div>
+
+    <div class="faq-item">
+      <p class="faq-question">Can I delete my account and data?</p>
+      <p class="faq-answer">Yes. Email us at alex@thedigitalpop.com and we'll delete your account and all associated data from our servers within 30 days.</p>
+    </div>
+
+    <div class="faq-item">
+      <p class="faq-question">Is Fieldwork a replacement for therapy?</p>
+      <p class="faq-answer">No. Fieldwork is an attention-training tool, not a medical device or therapy substitute. Grounding Mode is a self-help exercise based on common therapeutic techniques, but it is not a replacement for professional mental health care. If you're in crisis, please contact your local emergency services.</p>
+    </div>
+
+    <div class="faq-item">
+      <p class="faq-question">What senses does Fieldwork train?</p>
+      <p class="faq-answer">Six: Sight, Sound, Touch, Smell, Taste, and Body (interoception — your sense of internal physical states like balance, heartbeat, and muscle tension).</p>
+    </div>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-left">
+        <span class="footer-logo">Fieldwork</span>
+        <span class="footer-copy">&copy; 2026 Fieldwork. All rights reserved.</span>
+      </div>
+      <ul class="footer-links">
+        <li><a href="../privacy/">Privacy</a></li>
+        <li><a href="../terms/">Terms</a></li>
+        <li><a href="../support/">Support</a></li>
+      </ul>
+    </div>
+  </footer>
+</body>
+</html>
