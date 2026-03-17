@@ -1,0 +1,1338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fieldwork — Train Your Attention</title>
+  <meta name="description" content="202 sensory micro-challenges to help you notice the world again. A contemplative practice disguised as a game.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* ═══════════════════════════════════════
+       TOKENS
+       ═══════════════════════════════════════ */
+    :root {
+      --bg: #0D0D0F;
+      --surface: #1A1A2E;
+      --surface-raised: #252540;
+      --primary: #D4A574;
+      --primary-dim: rgba(212, 165, 116, 0.15);
+      --secondary: #7C9A8E;
+      --text-primary: #E8E0D8;
+      --text-secondary: #8A8A8A;
+      --border: #2A2A3E;
+      --success: #7EBF8E;
+
+      --sense-sight: #C4A882;
+      --sense-sound: #82A8C4;
+      --sense-touch: #A882C4;
+      --sense-smell: #82C4A8;
+      --sense-taste: #C48282;
+      --sense-body: #C4C482;
+
+      --font-display: 'Instrument Serif', Georgia, serif;
+      --font-body: 'Manrope', system-ui, sans-serif;
+
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-breathe: cubic-bezier(0.45, 0, 0.55, 1);
+    }
+
+    /* ═══════════════════════════════════════
+       RESET & BASE
+       ═══════════════════════════════════════ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html {
+      font-size: 16px;
+      scroll-behavior: smooth;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--bg);
+      color: var(--text-primary);
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    /* Grain overlay */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: 10000;
+      pointer-events: none;
+      opacity: 0.035;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-repeat: repeat;
+      background-size: 256px 256px;
+    }
+
+    ::selection {
+      background: rgba(212, 165, 116, 0.3);
+      color: var(--text-primary);
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+
+    /* ═══════════════════════════════════════
+       SCROLL REVEAL
+       ═══════════════════════════════════════ */
+    .reveal {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity 0.9s var(--ease-out), transform 0.9s var(--ease-out);
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+    .reveal-delay-5 { transition-delay: 0.5s; }
+    .reveal-delay-6 { transition-delay: 0.6s; }
+
+    /* ═══════════════════════════════════════
+       NAV
+       ═══════════════════════════════════════ */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      padding: 20px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.4s, backdrop-filter 0.4s, -webkit-backdrop-filter 0.4s;
+    }
+    nav.scrolled {
+      background: rgba(13, 13, 15, 0.8);
+      -webkit-backdrop-filter: blur(20px) saturate(1.2);
+      backdrop-filter: blur(20px) saturate(1.2);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: 1.4rem;
+      color: var(--primary);
+      letter-spacing: -0.02em;
+    }
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      align-items: center;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+      letter-spacing: 0.02em;
+      transition: color 0.3s;
+    }
+    .nav-links a:hover { color: var(--text-primary); }
+    .nav-cta {
+      font-size: 0.82rem !important;
+      font-weight: 600 !important;
+      color: var(--primary) !important;
+      padding: 8px 20px;
+      border: 1px solid rgba(212, 165, 116, 0.3);
+      border-radius: 100px;
+      transition: background 0.3s, border-color 0.3s, color 0.3s !important;
+    }
+    .nav-cta:hover {
+      background: rgba(212, 165, 116, 0.1);
+      border-color: var(--primary);
+    }
+
+    .nav-toggle {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      width: 28px;
+      height: 20px;
+      position: relative;
+    }
+    .nav-toggle span {
+      display: block;
+      width: 100%;
+      height: 1.5px;
+      background: var(--text-primary);
+      position: absolute;
+      left: 0;
+      transition: transform 0.3s, opacity 0.3s;
+    }
+    .nav-toggle span:nth-child(1) { top: 0; }
+    .nav-toggle span:nth-child(2) { top: 50%; transform: translateY(-50%); }
+    .nav-toggle span:nth-child(3) { bottom: 0; }
+
+    /* ═══════════════════════════════════════
+       HERO
+       ═══════════════════════════════════════ */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 120px 24px 80px;
+      overflow: hidden;
+    }
+
+    /* Ambient glow */
+    .hero::before {
+      content: '';
+      position: absolute;
+      bottom: -20%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 900px;
+      height: 600px;
+      background: radial-gradient(ellipse, rgba(212, 165, 116, 0.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    /* Breathing ring */
+    .breathing-ring {
+      position: absolute;
+      width: 500px;
+      height: 500px;
+      border-radius: 50%;
+      border: 1px solid rgba(212, 165, 116, 0.06);
+      animation: breathe 4s var(--ease-breathe) infinite;
+      pointer-events: none;
+    }
+    .breathing-ring:nth-child(2) {
+      width: 600px;
+      height: 600px;
+      animation-delay: -1s;
+      border-color: rgba(124, 154, 142, 0.04);
+    }
+    .breathing-ring:nth-child(3) {
+      width: 700px;
+      height: 700px;
+      animation-delay: -2s;
+      border-color: rgba(212, 165, 116, 0.03);
+    }
+
+    @keyframes breathe {
+      0%, 100% { transform: scale(0.92); opacity: 0.4; }
+      50% { transform: scale(1.08); opacity: 1; }
+    }
+
+    /* Floating particles */
+    .particles {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+    }
+    .particle {
+      position: absolute;
+      border-radius: 50%;
+      opacity: 0;
+      animation: particle-float linear infinite;
+    }
+    @keyframes particle-float {
+      0% {
+        opacity: 0;
+        transform: translateY(0) translateX(0);
+      }
+      10% { opacity: 0.6; }
+      90% { opacity: 0.6; }
+      100% {
+        opacity: 0;
+        transform: translateY(-100vh) translateX(var(--drift));
+      }
+    }
+
+    .hero-eyebrow {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--primary);
+      margin-bottom: 24px;
+      opacity: 0;
+      animation: hero-fade-in 1.2s var(--ease-out) 0.3s forwards;
+    }
+
+    .hero-title {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: clamp(4rem, 12vw, 9rem);
+      line-height: 0.95;
+      letter-spacing: -0.03em;
+      color: var(--text-primary);
+      margin-bottom: 28px;
+      position: relative;
+      z-index: 2;
+      opacity: 0;
+      animation: hero-fade-in 1.4s var(--ease-out) 0.5s forwards;
+    }
+
+    .hero-subtitle {
+      font-size: clamp(1rem, 2.2vw, 1.25rem);
+      font-weight: 300;
+      color: var(--text-secondary);
+      max-width: 520px;
+      line-height: 1.7;
+      margin-bottom: 48px;
+      opacity: 0;
+      animation: hero-fade-in 1.4s var(--ease-out) 0.8s forwards;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      flex-wrap: wrap;
+      justify-content: center;
+      opacity: 0;
+      animation: hero-fade-in 1.4s var(--ease-out) 1.1s forwards;
+    }
+
+    @keyframes hero-fade-in {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 32px;
+      background: var(--primary);
+      color: var(--bg);
+      font-family: var(--font-body);
+      font-size: 0.9rem;
+      font-weight: 600;
+      border: none;
+      border-radius: 100px;
+      cursor: pointer;
+      transition: transform 0.3s var(--ease-out), box-shadow 0.3s;
+      letter-spacing: 0.01em;
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(212, 165, 116, 0.25);
+    }
+    .btn-primary svg { width: 18px; height: 18px; }
+
+    .btn-ghost {
+      padding: 14px 24px;
+      font-family: var(--font-body);
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+      background: none;
+      border: none;
+      cursor: pointer;
+      transition: color 0.3s;
+      letter-spacing: 0.01em;
+    }
+    .btn-ghost:hover { color: var(--text-primary); }
+
+    .hero-scroll-hint {
+      position: absolute;
+      bottom: 32px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      opacity: 0;
+      animation: hero-fade-in 1s var(--ease-out) 2s forwards;
+    }
+    .hero-scroll-hint span {
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+    }
+    .scroll-line {
+      width: 1px;
+      height: 32px;
+      background: linear-gradient(to bottom, var(--primary), transparent);
+      animation: scroll-pulse 2s var(--ease-breathe) infinite;
+    }
+    @keyframes scroll-pulse {
+      0%, 100% { opacity: 0.3; transform: scaleY(0.6); transform-origin: top; }
+      50% { opacity: 1; transform: scaleY(1); }
+    }
+
+    /* ═══════════════════════════════════════
+       SECTION SHARED
+       ═══════════════════════════════════════ */
+    section {
+      padding: 120px 24px;
+      position: relative;
+    }
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .section-label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--primary);
+      margin-bottom: 16px;
+    }
+    .section-heading {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: clamp(2.4rem, 5vw, 3.6rem);
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      margin-bottom: 20px;
+    }
+    .section-desc {
+      font-size: 1.05rem;
+      font-weight: 300;
+      color: var(--text-secondary);
+      max-width: 540px;
+      line-height: 1.7;
+    }
+
+    /* ═══════════════════════════════════════
+       PHILOSOPHY
+       ═══════════════════════════════════════ */
+    .philosophy {
+      padding: 140px 24px;
+      display: flex;
+      justify-content: center;
+      border-top: 1px solid var(--border);
+    }
+    .philosophy-inner {
+      max-width: 800px;
+      text-align: center;
+    }
+    .philosophy-quote {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: clamp(1.6rem, 3.5vw, 2.6rem);
+      line-height: 1.4;
+      letter-spacing: -0.01em;
+      color: var(--text-primary);
+      margin-bottom: 32px;
+    }
+    .philosophy-body {
+      font-size: 1.05rem;
+      font-weight: 300;
+      color: var(--text-secondary);
+      line-height: 1.8;
+      max-width: 560px;
+      margin: 0 auto;
+    }
+    .amber-line {
+      width: 48px;
+      height: 1px;
+      background: var(--primary);
+      margin: 32px auto;
+      opacity: 0.5;
+    }
+
+    /* ═══════════════════════════════════════
+       HOW IT WORKS
+       ═══════════════════════════════════════ */
+    .how-it-works {
+      border-top: 1px solid var(--border);
+    }
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 48px;
+      margin-top: 64px;
+      position: relative;
+    }
+    .steps::before {
+      content: '';
+      position: absolute;
+      top: 36px;
+      left: calc(16.66% + 24px);
+      right: calc(16.66% + 24px);
+      height: 1px;
+      background: linear-gradient(to right, var(--border), var(--primary), var(--border));
+      opacity: 0.4;
+    }
+    .step {
+      text-align: center;
+      position: relative;
+    }
+    .step-number {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: 1.6rem;
+      color: var(--primary);
+      margin-bottom: 28px;
+      position: relative;
+      z-index: 2;
+      transition: border-color 0.4s, box-shadow 0.4s;
+    }
+    .step:hover .step-number {
+      border-color: rgba(212, 165, 116, 0.4);
+      box-shadow: 0 0 40px rgba(212, 165, 116, 0.1);
+    }
+    .step-title {
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      margin-bottom: 12px;
+      letter-spacing: -0.01em;
+    }
+    .step-desc {
+      font-size: 0.9rem;
+      font-weight: 300;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      max-width: 280px;
+      margin: 0 auto;
+    }
+
+    /* ═══════════════════════════════════════
+       SENSES
+       ═══════════════════════════════════════ */
+    .senses {
+      border-top: 1px solid var(--border);
+    }
+    .senses-header {
+      margin-bottom: 64px;
+    }
+    .senses-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+    .sense-card {
+      position: relative;
+      padding: 36px 28px;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      overflow: hidden;
+      transition: border-color 0.5s, transform 0.4s var(--ease-out);
+      cursor: default;
+    }
+    .sense-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 16px;
+      background: radial-gradient(circle at 50% 100%, var(--glow) 0%, transparent 70%);
+      opacity: 0;
+      transition: opacity 0.5s;
+    }
+    .sense-card:hover {
+      transform: translateY(-4px);
+    }
+    .sense-card:hover::before {
+      opacity: 1;
+    }
+    .sense-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      margin-bottom: 20px;
+      position: relative;
+    }
+    .sense-dot::after {
+      content: '';
+      position: absolute;
+      inset: -4px;
+      border-radius: 50%;
+      background: inherit;
+      opacity: 0.3;
+      filter: blur(4px);
+    }
+    .sense-name {
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      margin-bottom: 8px;
+      letter-spacing: -0.01em;
+    }
+    .sense-description {
+      font-size: 0.85rem;
+      font-weight: 300;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+    .sense-example {
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+      font-size: 0.8rem;
+      font-style: italic;
+      color: var(--text-secondary);
+      opacity: 0.7;
+    }
+
+    /* ═══════════════════════════════════════
+       FEATURES (BENTO GRID)
+       ═══════════════════════════════════════ */
+    .features {
+      border-top: 1px solid var(--border);
+    }
+    .features-header {
+      margin-bottom: 64px;
+    }
+    .bento {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-auto-rows: minmax(200px, auto);
+      gap: 16px;
+    }
+    .bento-card {
+      padding: 32px 28px;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.4s, transform 0.3s var(--ease-out);
+    }
+    .bento-card:hover {
+      border-color: rgba(212, 165, 116, 0.2);
+      transform: translateY(-2px);
+    }
+    .bento-card.large {
+      grid-column: span 2;
+      grid-row: span 2;
+      padding: 44px 36px;
+    }
+    .bento-card.tall {
+      grid-row: span 2;
+    }
+    .bento-icon {
+      font-size: 2rem;
+      margin-bottom: 16px;
+      line-height: 1;
+    }
+    .bento-card.large .bento-icon {
+      font-size: 2.8rem;
+      margin-bottom: 24px;
+    }
+    .bento-title {
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      margin-bottom: 8px;
+      letter-spacing: -0.01em;
+    }
+    .bento-card.large .bento-title {
+      font-size: 1.6rem;
+    }
+    .bento-desc {
+      font-size: 0.85rem;
+      font-weight: 300;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+    .bento-card.large .bento-desc {
+      font-size: 0.95rem;
+      max-width: 400px;
+    }
+    .bento-accent {
+      position: absolute;
+      top: -40px;
+      right: -40px;
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      opacity: 0.05;
+      pointer-events: none;
+    }
+
+    /* Stat highlight inside a bento card */
+    .bento-stat {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: 3.5rem;
+      color: var(--primary);
+      line-height: 1;
+      margin-bottom: 8px;
+      letter-spacing: -0.03em;
+    }
+    .bento-card.large .bento-stat {
+      font-size: 5rem;
+    }
+
+    /* ═══════════════════════════════════════
+       PRICING
+       ═══════════════════════════════════════ */
+    .pricing {
+      border-top: 1px solid var(--border);
+    }
+    .pricing-header {
+      text-align: center;
+      margin-bottom: 64px;
+    }
+    .pricing-header .section-desc {
+      margin: 0 auto;
+    }
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+    .pricing-card {
+      padding: 40px 32px;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.4s var(--ease-out), border-color 0.4s;
+    }
+    .pricing-card:hover {
+      transform: translateY(-4px);
+    }
+    .pricing-card.featured {
+      border-color: rgba(212, 165, 116, 0.4);
+      background: linear-gradient(170deg, var(--surface-raised) 0%, var(--surface) 100%);
+      position: relative;
+    }
+    .pricing-card.featured::before {
+      content: '';
+      position: absolute;
+      inset: -1px;
+      border-radius: 17px;
+      background: linear-gradient(170deg, rgba(212, 165, 116, 0.2), transparent 60%);
+      z-index: -1;
+      pointer-events: none;
+    }
+    .pricing-badge {
+      display: inline-block;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--bg);
+      background: var(--primary);
+      padding: 4px 12px;
+      border-radius: 100px;
+      margin-bottom: 20px;
+      align-self: flex-start;
+    }
+    .pricing-tier {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      margin-bottom: 4px;
+    }
+    .pricing-price {
+      display: flex;
+      align-items: baseline;
+      gap: 4px;
+      margin-bottom: 8px;
+    }
+    .pricing-amount {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: 2.8rem;
+      letter-spacing: -0.03em;
+      color: var(--text-primary);
+    }
+    .pricing-period {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+    }
+    .pricing-tagline {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      margin-bottom: 28px;
+      line-height: 1.5;
+    }
+    .pricing-features {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 32px;
+      flex: 1;
+    }
+    .pricing-features li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 0.88rem;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+    .pricing-features li::before {
+      content: '';
+      flex-shrink: 0;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--secondary);
+      margin-top: 7px;
+    }
+    .pricing-card.featured .pricing-features li::before {
+      background: var(--primary);
+    }
+    .btn-pricing {
+      display: block;
+      width: 100%;
+      padding: 14px;
+      text-align: center;
+      font-family: var(--font-body);
+      font-size: 0.88rem;
+      font-weight: 600;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-primary);
+      cursor: pointer;
+      transition: background 0.3s, border-color 0.3s, transform 0.3s var(--ease-out);
+    }
+    .btn-pricing:hover {
+      background: var(--surface-raised);
+      border-color: rgba(212, 165, 116, 0.2);
+      transform: translateY(-1px);
+    }
+    .pricing-card.featured .btn-pricing {
+      background: var(--primary);
+      color: var(--bg);
+      border-color: var(--primary);
+    }
+    .pricing-card.featured .btn-pricing:hover {
+      box-shadow: 0 8px 32px rgba(212, 165, 116, 0.25);
+    }
+
+    /* ═══════════════════════════════════════
+       FINAL CTA
+       ═══════════════════════════════════════ */
+    .final-cta {
+      text-align: center;
+      padding: 160px 24px;
+      position: relative;
+      border-top: 1px solid var(--border);
+    }
+    .final-cta::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(212, 165, 116, 0.04), transparent 60%);
+      pointer-events: none;
+    }
+    .final-heading {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: clamp(3rem, 7vw, 5rem);
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      margin-bottom: 20px;
+    }
+    .final-sub {
+      font-size: 1.05rem;
+      font-weight: 300;
+      color: var(--text-secondary);
+      margin-bottom: 40px;
+      line-height: 1.7;
+    }
+    .sense-dots-row {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      margin-top: 48px;
+    }
+    .sense-dots-row span {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      opacity: 0.5;
+      animation: dot-breathe 4s var(--ease-breathe) infinite;
+    }
+    .sense-dots-row span:nth-child(2) { animation-delay: 0.6s; }
+    .sense-dots-row span:nth-child(3) { animation-delay: 1.2s; }
+    .sense-dots-row span:nth-child(4) { animation-delay: 1.8s; }
+    .sense-dots-row span:nth-child(5) { animation-delay: 2.4s; }
+    .sense-dots-row span:nth-child(6) { animation-delay: 3.0s; }
+    @keyframes dot-breathe {
+      0%, 100% { opacity: 0.3; transform: scale(1); }
+      50% { opacity: 0.8; transform: scale(1.3); }
+    }
+
+    /* ═══════════════════════════════════════
+       FOOTER
+       ═══════════════════════════════════════ */
+    footer {
+      padding: 48px 24px;
+      border-top: 1px solid var(--border);
+    }
+    .footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .footer-left {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+    .footer-logo {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: 1.1rem;
+      color: var(--primary);
+    }
+    .footer-copy {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+    }
+    .footer-links {
+      display: flex;
+      gap: 24px;
+      list-style: none;
+    }
+    .footer-links a {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      transition: color 0.3s;
+    }
+    .footer-links a:hover { color: var(--text-primary); }
+
+    /* ═══════════════════════════════════════
+       RESPONSIVE
+       ═══════════════════════════════════════ */
+    @media (max-width: 900px) {
+      .steps { grid-template-columns: 1fr; gap: 40px; }
+      .steps::before { display: none; }
+      .senses-grid { grid-template-columns: repeat(2, 1fr); }
+      .bento { grid-template-columns: repeat(2, 1fr); }
+      .bento-card.large { grid-column: span 2; grid-row: span 1; }
+      .bento-card.tall { grid-row: span 1; }
+      .pricing-grid { grid-template-columns: 1fr; max-width: 400px; }
+    }
+
+    @media (max-width: 640px) {
+      nav { padding: 16px 20px; }
+      .nav-links { display: none; }
+      .nav-links.open {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: rgba(13, 13, 15, 0.95);
+        -webkit-backdrop-filter: blur(20px);
+        backdrop-filter: blur(20px);
+        padding: 24px;
+        gap: 20px;
+        border-bottom: 1px solid var(--border);
+      }
+      .nav-toggle { display: block; }
+
+      section { padding: 80px 20px; }
+      .philosophy { padding: 100px 20px; }
+      .senses-grid { grid-template-columns: 1fr; }
+      .bento { grid-template-columns: 1fr; }
+      .bento-card.large { grid-column: span 1; }
+      .final-cta { padding: 100px 20px; }
+
+      .footer-inner { flex-direction: column; gap: 20px; text-align: center; }
+      .footer-left { flex-direction: column; gap: 8px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════════════ NAV ═══════════════════ -->
+  <nav id="nav">
+    <a href="#" class="nav-logo">Fieldwork</a>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#how">How It Works</a></li>
+      <li><a href="#senses">Senses</a></li>
+      <li><a href="#features">Features</a></li>
+      <li><a href="#pricing">Pricing</a></li>
+      <li><a href="#download" class="nav-cta">Download</a></li>
+    </ul>
+  </nav>
+
+  <!-- ═══════════════════ HERO ═══════════════════ -->
+  <section class="hero">
+    <div class="breathing-ring"></div>
+    <div class="breathing-ring"></div>
+    <div class="breathing-ring"></div>
+    <div class="particles" id="particles"></div>
+
+    <p class="hero-eyebrow">Train Your Attention</p>
+    <h1 class="hero-title">Fieldwork</h1>
+    <p class="hero-subtitle">202 sensory micro-challenges to help you notice the world again. A contemplative practice disguised as a game.</p>
+    <div class="hero-actions">
+      <button class="btn-primary" onclick="document.getElementById('download').scrollIntoView({behavior:'smooth'})">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+        App Store
+      </button>
+      <button class="btn-ghost" onclick="document.getElementById('how').scrollIntoView({behavior:'smooth'})">Learn more</button>
+    </div>
+
+    <div class="hero-scroll-hint">
+      <span>Scroll</span>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════ PHILOSOPHY ═══════════════════ -->
+  <section class="philosophy">
+    <div class="philosophy-inner">
+      <p class="philosophy-quote reveal">Most of us spend our days on autopilot &mdash; seeing without noticing, hearing without listening, touching without feeling.</p>
+      <div class="amber-line reveal reveal-delay-1"></div>
+      <p class="philosophy-body reveal reveal-delay-2">Fieldwork is a daily practice. Each challenge draws your attention to one sense, one moment, one detail you would have missed. Over weeks, the world grows richer &mdash; not because it changed, but because you did.</p>
+    </div>
+  </section>
+
+  <!-- ═══════════════════ HOW IT WORKS ═══════════════════ -->
+  <section class="how-it-works" id="how">
+    <div class="container">
+      <div class="reveal">
+        <p class="section-label">How It Works</p>
+        <h2 class="section-heading">Three moments a day</h2>
+        <p class="section-desc">Fieldwork fits into the cracks of your schedule. No mats, no apps running in the background. Just you and what you notice.</p>
+      </div>
+      <div class="steps">
+        <div class="step reveal reveal-delay-1">
+          <div class="step-number">1</div>
+          <h3 class="step-title">Receive a challenge</h3>
+          <p class="step-desc">Each morning, Fieldwork selects challenges tuned to your level and the senses you need most.</p>
+        </div>
+        <div class="step reveal reveal-delay-2">
+          <div class="step-number">2</div>
+          <h3 class="step-title">Notice &amp; record</h3>
+          <p class="step-desc">Step into the world. Pay attention. Then capture what you noticed in a few words or sentences.</p>
+        </div>
+        <div class="step reveal reveal-delay-3">
+          <div class="step-number">3</div>
+          <h3 class="step-title">Grow your awareness</h3>
+          <p class="step-desc">Watch your attention deepen over time. Track streaks, master senses, and unlock poetic artifacts.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════ SENSES ═══════════════════ -->
+  <section class="senses" id="senses">
+    <div class="container">
+      <div class="senses-header reveal">
+        <p class="section-label">The Six Senses</p>
+        <h2 class="section-heading">Every sense is a doorway</h2>
+        <p class="section-desc">Fieldwork trains six channels of perception. Each has its own mastery track, color, and progression &mdash; ten levels to unlock across sixty unique titles.</p>
+      </div>
+      <div class="senses-grid">
+        <div class="sense-card reveal reveal-delay-1" style="--glow: rgba(196,168,130,0.08)">
+          <div class="sense-dot" style="background: var(--sense-sight)"></div>
+          <h3 class="sense-name">Sight</h3>
+          <p class="sense-description">Patterns of light, shadow, color, and shape that your eyes skim past every day.</p>
+          <p class="sense-example">"Notice the exact color of the sky at this moment."</p>
+        </div>
+        <div class="sense-card reveal reveal-delay-2" style="--glow: rgba(130,168,196,0.08)">
+          <div class="sense-dot" style="background: var(--sense-sound)"></div>
+          <h3 class="sense-name">Sound</h3>
+          <p class="sense-description">The layered symphony beneath the noise &mdash; rhythms, silences, and frequencies.</p>
+          <p class="sense-example">"Count how many distinct sounds you can hear right now."</p>
+        </div>
+        <div class="sense-card reveal reveal-delay-3" style="--glow: rgba(168,130,196,0.08)">
+          <div class="sense-dot" style="background: var(--sense-touch)"></div>
+          <h3 class="sense-name">Touch</h3>
+          <p class="sense-description">Texture, temperature, pressure &mdash; the conversation between your body and the world.</p>
+          <p class="sense-example">"Feel three different textures within arm's reach."</p>
+        </div>
+        <div class="sense-card reveal reveal-delay-4" style="--glow: rgba(130,196,168,0.08)">
+          <div class="sense-dot" style="background: var(--sense-smell)"></div>
+          <h3 class="sense-name">Smell</h3>
+          <p class="sense-description">The most primal sense &mdash; bypasses thought and speaks directly to memory.</p>
+          <p class="sense-example">"Identify an unexpected scent in your environment."</p>
+        </div>
+        <div class="sense-card reveal reveal-delay-5" style="--glow: rgba(196,130,130,0.08)">
+          <div class="sense-dot" style="background: var(--sense-taste)"></div>
+          <h3 class="sense-name">Taste</h3>
+          <p class="sense-description">Flavor is attention. Slow down and let a single bite unfold on your tongue.</p>
+          <p class="sense-example">"Eat one bite of your next meal with complete attention."</p>
+        </div>
+        <div class="sense-card reveal reveal-delay-6" style="--glow: rgba(196,196,130,0.08)">
+          <div class="sense-dot" style="background: var(--sense-body)"></div>
+          <h3 class="sense-name">Body</h3>
+          <p class="sense-description">Proprioception, balance, internal signals &mdash; the sense that tells you where you are.</p>
+          <p class="sense-example">"Notice how your weight shifts as you stand still."</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════ FEATURES ═══════════════════ -->
+  <section class="features" id="features">
+    <div class="container">
+      <div class="features-header reveal">
+        <p class="section-label">Features</p>
+        <h2 class="section-heading">Depth without complexity</h2>
+        <p class="section-desc">A system designed to reward consistency and curiosity &mdash; not time spent on your phone.</p>
+      </div>
+      <div class="bento">
+        <div class="bento-card large reveal">
+          <div class="bento-accent" style="background: var(--primary)"></div>
+          <div class="bento-stat">202</div>
+          <div class="bento-title">Sensory Challenges</div>
+          <p class="bento-desc">From beginner observations to mastery-level exercises. Organized into six themed packs with weekly chains that build progressive skill.</p>
+        </div>
+        <div class="bento-card reveal reveal-delay-1">
+          <div class="bento-icon">&#9711;</div>
+          <div class="bento-title">Awareness Scoring</div>
+          <p class="bento-desc">Multi-factor analysis of your observations. Vocabulary richness, sensory detail, specificity &mdash; watch your scores climb.</p>
+        </div>
+        <div class="bento-card reveal reveal-delay-2">
+          <div class="bento-icon">&#10022;</div>
+          <div class="bento-title">Streak Tracking</div>
+          <p class="bento-desc">Build daily consistency. Quality streaks reward depth of observation, not just showing up.</p>
+        </div>
+        <div class="bento-card reveal reveal-delay-1">
+          <div class="bento-icon">&#9830;</div>
+          <div class="bento-title">Weekly Insights</div>
+          <p class="bento-desc">Your patterns revealed &mdash; dominant senses, growth trends, and personalized focus suggestions.</p>
+        </div>
+        <div class="bento-card tall reveal reveal-delay-2">
+          <div class="bento-accent" style="background: var(--secondary)"></div>
+          <div class="bento-icon">&#9775;</div>
+          <div class="bento-title">Attention Fingerprint</div>
+          <p class="bento-desc">A living portrait of how you perceive the world. See your dominant senses, time patterns, vocabulary evolution, and quality trends &mdash; all from your real observations.</p>
+        </div>
+        <div class="bento-card reveal reveal-delay-3">
+          <div class="bento-icon">&#9733;</div>
+          <div class="bento-title">42 Achievements</div>
+          <p class="bento-desc">From your first observation to mastering every sense. Rare badges with rarity-based visual effects.</p>
+        </div>
+        <div class="bento-card reveal reveal-delay-1">
+          <div class="bento-icon">&#9998;</div>
+          <div class="bento-title">Discovery Journal</div>
+          <p class="bento-desc">Your best observations, surfaced and organized. A personal archive of moments you would have missed.</p>
+        </div>
+        <div class="bento-card reveal reveal-delay-2">
+          <div class="bento-icon">&#9784;</div>
+          <div class="bento-title">Poetic Artifacts</div>
+          <p class="bento-desc">Unlock 50+ contemplative fragments as you level up. Revealed word by word, like a message slowly arriving.</p>
+        </div>
+        <div class="bento-card reveal reveal-delay-3">
+          <div class="bento-icon">&#8984;</div>
+          <div class="bento-title">Apple Watch</div>
+          <p class="bento-desc">Challenges on your wrist. Dictate observations without pulling out your phone.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════ PRICING ═══════════════════ -->
+  <section class="pricing" id="pricing">
+    <div class="container">
+      <div class="pricing-header">
+        <p class="section-label reveal">Pricing</p>
+        <h2 class="section-heading reveal reveal-delay-1">Start free. Go deeper.</h2>
+        <p class="section-desc reveal reveal-delay-2">Every tier includes the core practice. Paid tiers unlock more daily challenges and the full depth of Fieldwork.</p>
+      </div>
+      <div class="pricing-grid">
+        <div class="pricing-card reveal reveal-delay-1">
+          <div class="pricing-tier">Free</div>
+          <div class="pricing-price">
+            <span class="pricing-amount">$0</span>
+          </div>
+          <p class="pricing-tagline">One challenge a day. Enough to begin.</p>
+          <ul class="pricing-features">
+            <li>1 daily challenge</li>
+            <li>All six senses</li>
+            <li>Streak tracking</li>
+            <li>Awareness scoring</li>
+            <li>Discovery journal</li>
+          </ul>
+          <button class="btn-pricing">Get Started</button>
+        </div>
+        <div class="pricing-card featured reveal reveal-delay-2">
+          <div class="pricing-badge">Most Popular</div>
+          <div class="pricing-tier">Present</div>
+          <div class="pricing-price">
+            <span class="pricing-amount">$6.99</span>
+            <span class="pricing-period">/month</span>
+          </div>
+          <p class="pricing-tagline">Three challenges. More range, more growth.</p>
+          <ul class="pricing-features">
+            <li>3 daily challenges</li>
+            <li>Everything in Free</li>
+            <li>Weekly insights</li>
+            <li>Attention fingerprint</li>
+            <li>Challenge packs</li>
+            <li>Sense mastery tracking</li>
+          </ul>
+          <button class="btn-pricing">Subscribe</button>
+        </div>
+        <div class="pricing-card reveal reveal-delay-3">
+          <div class="pricing-tier">Awake</div>
+          <div class="pricing-price">
+            <span class="pricing-amount">$12.99</span>
+            <span class="pricing-period">/month</span>
+          </div>
+          <p class="pricing-tagline">The full practice. Every tool, unlocked.</p>
+          <ul class="pricing-features">
+            <li>5 daily challenges</li>
+            <li>Everything in Present</li>
+            <li>Community features</li>
+            <li>Mentor pairing</li>
+            <li>Unlockable themes</li>
+            <li>Poetic artifacts</li>
+            <li>Therapist export (PDF)</li>
+          </ul>
+          <button class="btn-pricing">Subscribe</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════ FINAL CTA ═══════════════════ -->
+  <section class="final-cta" id="download">
+    <div class="container">
+      <h2 class="final-heading reveal">Begin your fieldwork.</h2>
+      <p class="final-sub reveal reveal-delay-1">The world is already extraordinary. You just have to notice.</p>
+      <div class="reveal reveal-delay-2">
+        <button class="btn-primary" style="font-size: 1rem; padding: 16px 40px;">
+          <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+          Download on the App Store
+        </button>
+      </div>
+      <div class="sense-dots-row reveal reveal-delay-3">
+        <span style="background: var(--sense-sight)"></span>
+        <span style="background: var(--sense-sound)"></span>
+        <span style="background: var(--sense-touch)"></span>
+        <span style="background: var(--sense-smell)"></span>
+        <span style="background: var(--sense-taste)"></span>
+        <span style="background: var(--sense-body)"></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════ FOOTER ═══════════════════ -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-left">
+        <span class="footer-logo">Fieldwork</span>
+        <span class="footer-copy">&copy; 2026 Fieldwork. All rights reserved.</span>
+      </div>
+      <ul class="footer-links">
+        <li><a href="privacy.html">Privacy</a></li>
+        <li><a href="terms.html">Terms</a></li>
+        <li><a href="mailto:alex@thedigitalpop.com">Support</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <!-- ═══════════════════ SCRIPTS ═══════════════════ -->
+  <script>
+    /* ——— Floating Particles ——— */
+    (function() {
+      const container = document.getElementById('particles');
+      const senseColors = [
+        'rgba(196,168,130,', // sight
+        'rgba(130,168,196,', // sound
+        'rgba(168,130,196,', // touch
+        'rgba(130,196,168,', // smell
+        'rgba(196,130,130,', // taste
+        'rgba(196,196,130,', // body
+      ];
+      for (let i = 0; i < 18; i++) {
+        const el = document.createElement('div');
+        el.className = 'particle';
+        const color = senseColors[i % senseColors.length];
+        const size = 3 + Math.random() * 10;
+        const left = 5 + Math.random() * 90;
+        const duration = 12 + Math.random() * 18;
+        const delay = Math.random() * -duration;
+        const drift = -40 + Math.random() * 80;
+        const opacity = 0.3 + Math.random() * 0.4;
+
+        el.style.cssText = `
+          width: ${size}px;
+          height: ${size}px;
+          left: ${left}%;
+          bottom: -${size}px;
+          background: ${color}${opacity});
+          box-shadow: 0 0 ${size * 2}px ${color}${opacity * 0.5});
+          animation-duration: ${duration}s;
+          animation-delay: ${delay}s;
+          --drift: ${drift}px;
+        `;
+        container.appendChild(el);
+      }
+    })();
+
+    /* ——— Scroll Reveal ——— */
+    (function() {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+
+      document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    })();
+
+    /* ——— Nav scroll state ——— */
+    (function() {
+      const nav = document.getElementById('nav');
+      let ticking = false;
+      window.addEventListener('scroll', () => {
+        if (!ticking) {
+          requestAnimationFrame(() => {
+            nav.classList.toggle('scrolled', window.scrollY > 40);
+            ticking = false;
+          });
+          ticking = true;
+        }
+      });
+    })();
+
+    /* ——— Mobile nav toggle ——— */
+    (function() {
+      const toggle = document.getElementById('navToggle');
+      const links = document.getElementById('navLinks');
+      toggle.addEventListener('click', () => {
+        links.classList.toggle('open');
+      });
+      links.querySelectorAll('a').forEach(a => {
+        a.addEventListener('click', () => links.classList.remove('open'));
+      });
+    })();
+  </script>
+</body>
+</html>
